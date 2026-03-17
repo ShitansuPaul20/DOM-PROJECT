@@ -1,4 +1,4 @@
-
+// ====== MODAL (POPUP) LOGIC ======
 const authModal = document.getElementById('authModal');
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
@@ -26,15 +26,9 @@ function switchForm(type) {
     }
 }
 
-
 if(authModal) {
     authModal.addEventListener('click', (e) => {
-        const user = localStorage.getItem('focusUser'); 
-
-        if (e.target === authModal && user) {
-            closeModal();
-        } 
-
+        if (e.target === authModal) closeModal();
     });
 }
 
@@ -102,9 +96,11 @@ function processLogout() {
 function loadProfileData() {
     const user = JSON.parse(localStorage.getItem('focusUser'));
     if(!user) return;
+
     document.getElementById('profileName').innerText = user.name;
     document.getElementById('profileEmail').innerText = user.email;
     document.getElementById('profileAvatar').innerText = user.name.charAt(0).toUpperCase();
+
     const appData = JSON.parse(localStorage.getItem("appProgressData"));
     if(appData) {
         document.getElementById('statTasks').innerText = appData.tasks ? appData.tasks.length : 0;
@@ -125,13 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Agar user logged in nahi hai
             if (!user) {
-                e.preventDefault(); 
-                
-                openModal('login'); 
+                e.preventDefault(); // Page change hone se instantly rok do
+                openModal('login'); // Login form khol do
             }
         });
     });
 });
 
-
+// Initialize App
 updateNavbar();
