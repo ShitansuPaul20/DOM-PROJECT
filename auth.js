@@ -26,16 +26,15 @@ function switchForm(type) {
     }
 }
 
-// ====== MODAL (POPUP) CLOSING LOGIC ======
+
 if(authModal) {
     authModal.addEventListener('click', (e) => {
-        const user = localStorage.getItem('focusUser'); // Check karo user hai ya nahi
-        
-        // Agar user click bahar karta hai AUR wo logged in hai, tabhi close hoga
+        const user = localStorage.getItem('focusUser'); 
+
         if (e.target === authModal && user) {
             closeModal();
         } 
-        // Agar logged in nahi hai, toh popup band nahi hoga (Hard Wall)
+
     });
 }
 
