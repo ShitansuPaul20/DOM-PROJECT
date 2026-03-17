@@ -1,8 +1,12 @@
-// protect.js
+
 (function() {
     let user = localStorage.getItem('focusUser');
-    // Agar local storage mein user data nahi hai, toh seedha Home (index.html) pe bhej do
-    if (!user) {
-        window.location.replace('index.html'); 
+    
+
+    let isHomePage = window.location.pathname.includes('index.htm') || window.location.pathname.endsWith('/');
+
+   
+    if (!user && !isHomePage) {
+        window.location.replace('index.htm'); 
     }
 })();
