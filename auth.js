@@ -5,47 +5,50 @@ const signupForm = document.getElementById('signupForm');
 const profilePage = document.getElementById('profilePage');
 
 function openModal(type) {
-    authModal.classList.remove('hidden');
+    if(authModal) authModal.classList.remove('hidden');
     switchForm(type);
 }
 
 function closeModal() {
-    authModal.classList.add('hidden');
+    if(authModal) authModal.classList.add('hidden');
 }
 
 function switchForm(type) {
-    loginForm.classList.add('hidden');
-    signupForm.classList.add('hidden');
-    profilePage.classList.add('hidden');
+    if(loginForm) loginForm.classList.add('hidden');
+    if(signupForm) signupForm.classList.add('hidden');
+    if(profilePage) profilePage.classList.add('hidden');
 
-    if (type === 'login') loginForm.classList.remove('hidden');
-    if (type === 'signup') signupForm.classList.remove('hidden');
+    if (type === 'login' && loginForm) loginForm.classList.remove('hidden');
+    if (type === 'signup' && signupForm) signupForm.classList.remove('hidden');
     if (type === 'profile') {
-        profilePage.classList.remove('hidden');
-        loadProfileData(); // Jab profile khule, purana data load ho jaye
+        if(profilePage) profilePage.classList.remove('hidden');
+        loadProfileData();
     }
 }
 
-// Close modal agar user bahar black screen pe click kare
-authModal.addEventListener('click', (e) => {
-    if (e.target === authModal) closeModal();
-});
+if(authModal) {
+    authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) closeModal();
+    });
+}
 
-
-
-// ====== AUTHENTICATION LOGIC (LOCALSTORAGE) ======
+// ====== AUTHENTICATION LOGIC ======
 function updateNavbar() {
     const user = JSON.parse(localStorage.getItem('focusUser'));
     const loggedOutNav = document.getElementById('loggedOutNav');
     const loggedInNav = document.getElementById('loggedInNav');
 
     if (user) {
-        loggedOutNav.classList.add('hidden');
-        loggedInNav.classList.remove('hidden');
-        document.getElementById('navAvatar').innerText = user.name.charAt(0).toUpperCase();
+        if(loggedOutNav) loggedOutNav.classList.add('hidden');
+        if(loggedInNav) loggedInNav.classList.remove('hidden');
+        let navAv = document.getElementById('navAvatar');
+        if(navAv) navAv.innerText = user.name.charAt(0).toUpperCase();
     } else {
-        loggedOutNav.classList.remove('hidden');
-        loggedInNav.classList.add('hidden');
+        if(loggedOutNav) loggedOutNav.classList.remove('hidden');
+        if(loggedInNav) loggedInNav.classList.add('hidden');
+        
+        // 🔥 NAYA FEATURE 1: App khulte hi Auto-Signup form dikhao
+        openModal('signup');
     }
 }
 
@@ -58,7 +61,6 @@ function processSignup() {
 
     const user = { name, email, pass };
     localStorage.setItem('focusUser', JSON.stringify(user));
-    alert("Account created successfully!");
     
     updateNavbar();
     closeModal();
@@ -79,7 +81,6 @@ function processLogin() {
 function processLogout() {
     localStorage.removeItem('focusUser'); 
     updateNavbar();
-    closeModal();
 }
 
 // ====== PROFILE DATA INTEGRATION ======
@@ -91,7 +92,6 @@ function loadProfileData() {
     document.getElementById('profileEmail').innerText = user.email;
     document.getElementById('profileAvatar').innerText = user.name.charAt(0).toUpperCase();
 
-    // Fetching data from your Tracker Project!
     const appData = JSON.parse(localStorage.getItem("appProgressData"));
     if(appData) {
         document.getElementById('statTasks').innerText = appData.tasks ? appData.tasks.length : 0;
@@ -101,5 +101,23 @@ function loadProfileData() {
     }
 }
 
-// Initialize Navbar on page load
+// 🔥 NAYA FEATURE 2: ROUTE PROTECTION (Bina Login Click Rokna)
+document.addEventListener('DOMContentLoaded', () => {
+    // Saare cards aur game buttons ko select karo
+    const protectedLinks = document.querySelectorAll('.contents a');
+    
+    protectedLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const user = JSON.parse(localStorage.getItem('focusUser'));
+            
+            // Agar user logged in nahi hai
+            if (!user) {
+                e.preventDefault(); // Page change hone se instantly rok do
+                openModal('login'); // Login form khol do
+            }
+        });
+    });
+});
+
+// Initialize App
 updateNavbar();
