@@ -1,0 +1,128 @@
+@font-face {
+    font-family: med;
+    src: url(./MonaSans-Medium.ttf);
+}
+@font-face {
+    font-family: reg;
+    src: url(./MonaSans-Regular.ttf);
+}
+@font-face {
+    font-family: lighti;
+    src: url(./MonaSans-Light.ttf);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    font-family: reg;
+}
+
+body {
+    background-color: #f0f0f0;
+}
+.main{
+    width: 100%;
+    height: 100vh;
+    background-color: #c0de97;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.panel{
+    width: 80%;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.546);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.paneltop{
+    width:100%;
+    height: 100px;
+    background-color: #597a2b;
+    display: flex;
+    padding: 0 28%;
+    gap: 100px;
+}
+.elem{
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 13px;
+    font-size: 22px;
+}
+.elem .hit, .elem .timer, .elem .score{
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 550;
+    font-family: reg;
+}
+
+.pannelbottom{
+    width: 100%;
+    height: calc(100% - 100px);
+    padding: 20px 30px;
+    display: flex;
+    position: relative;
+    gap: 15px;
+    flex-wrap: wrap
+}
+.pannelbottom .bubble{
+    background-color: #597a2b;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: reg;
+    &:hover{
+        background-color: #2d3b12;
+        scale: 0.8;
+    }
+}
+.pannelbottom .gameover{
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 28px;
+    background-color: #4f7700;
+    font-family: med;
+}
+.lol{
+    height: 50px;
+    width: 100px;
+    border-radius: 15px;
+    color: white;
+    background-color: #6daa17;
+    font-family: reg;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 1175px) { .paneltop { padding: 0 15%; gap: 50px; } }
+@media (max-width: 890px) { .paneltop { padding: 0 5%; gap: 30px; } }
+@media (max-width: 700px) { .paneltop { flex-direction: column; height: auto; padding: 15px; gap: 15px; justify-content: center; } .pannelbottom .bubble { width: 50px; height: 50px; font-size: 20px; } }
+
+

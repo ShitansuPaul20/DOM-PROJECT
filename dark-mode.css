@@ -1,0 +1,50 @@
+
+html[data-theme="dark"] body {
+    background-image: linear-gradient(to bottom right, #0f172a, #1e293b, #0f2027) !important;
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+/* 2. Make all Headings and Text light colored */
+html[data-theme="dark"] h1, 
+html[data-theme="dark"] h2, 
+html[data-theme="dark"] h3, 
+html[data-theme="dark"] p, 
+html[data-theme="dark"] span,
+html[data-theme="dark"] div {
+    color: #f1f5f9;
+}
+
+/* 3. Main Glassmorphism Containers (Todo, Planner, Pomo, Tracker) */
+html[data-theme="dark"] .todoapp,
+html[data-theme="dark"] .planner-dashboard,
+html[data-theme="dark"] .tracker-dashboard,
+html[data-theme="dark"] .container,
+html[data-theme="dark"] .WorksessionPopup .popUp {
+    background-color: rgba(30, 41, 59, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 4. Inputs, Dropdowns, and Task Lists */
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] li,
+html[data-theme="dark"] .task-card,
+html[data-theme="dark"] .task-div,
+html[data-theme="dark"] .total-time-card,
+html[data-theme="dark"] .chart-container {
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 5. Input Placeholders */
+html[data-theme="dark"] input::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* 6. Icons */
+html[data-theme="dark"] i {
+    color: #38bdf8 !important; /* Premium Cyan Color */
+}

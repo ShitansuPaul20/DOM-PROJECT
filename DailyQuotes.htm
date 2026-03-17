@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+    <link rel="stylesheet" href="qgene.css">
+    <link rel="stylesheet" href="dark-mode.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+    <a href="index.htm" style="position: absolute; top: 30px; left: 30px; color: white; text-decoration: none; font-size: 1.2rem;">
+        <i class="ri-arrow-left-line"></i> Dashboard
+    </a>
+    <div class="quote-box">
+        <h2>Quote of the day</h2>
+        <blockquote>Loading....</blockquote>
+        <span>Loading....</span>
+        <div>
+            <button onclick="getQuote()">New Quote</button>
+            <button class="j" onclick="shareOnTwitter()">Twitter <i class="ri-twitter-x-line"></i></button>
+        </div>
+    </div>
+    <script src="./qgenescript.js"></script>
+    <script src="./global-theme.js"></script>
+</body>
+</html>

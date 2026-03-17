@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="todo.css">
+    <link rel="stylesheet" href="dark-mode.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+    <main>
+        <a href="index.htm" style="position: absolute; top: 30px; left: 30px; color: white; text-decoration: none; font-size: 1.2rem;">
+            <i class="ri-arrow-left-line"></i> Dashboard
+        </a>
+        <div class="todoapp">
+            <div class="heading">
+                <h2>To-Do List</h2><img src="todo-removebg-preview.png" alt="">
+            </div>
+            <div class="searchbox">
+                <input type="text" id="input-box" placeholder="Add your text">
+                <button onclick="addTask()">Add</button>
+            </div>
+            
+            <div class="Task_list">
+                <ul class="Task_list_ul" >
+                </ul>
+            </div>
+        </div>
+    </main>
+    <script src="todo.js"></script>
+    <script src="./global-theme.js"></script>
+</body>
+</html>

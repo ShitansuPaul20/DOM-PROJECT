@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="dark-mode.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            width: 100vw;
+            background-image: linear-gradient(to bottom right, rgb(88, 88, 255), rgb(179, 28, 179));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Premium Glassmorphism Container */
+        .planner-dashboard {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 700px;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-top: 8px;
+            opacity: 0.9;
+            background: rgba(0,0,0,0.2);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+        }
+
+        /* Task List Container */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Individual Task Div UI */
+        .task-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 18px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .task-card:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-left: 5px solid rgb(179, 28, 179);
+        }
+
+        .task-card.completed {
+            opacity: 0.7;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .task-card.completed input {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        /* Custom Checkbox & Delete Icons */
+        .action-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: rgb(88, 88, 255);
+        }
+        
+        .action-icon:hover { transform: scale(1.1); }
+        .delete-icon { color: #ff4757; }
+
+        /* Transparent Input Box */
+        .task-card input[type="text"] {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1.2rem;
+            color: #333;
+            padding: 5px 0;
+        }
+
+        .task-card input::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        /* Stylish Add Button */
+        .add-btn {
+            background: linear-gradient(to right, rgb(88, 88, 255), rgb(179, 28, 179));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px auto 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: fit-content;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        }
+
+        .add-btn:active {
+            transform: translateY(1px);
+        }
+        /* --- PLANNER DARK MODE OVERRIDES --- */
+        [data-theme="dark"] {
+            body { background-image: linear-gradient(to bottom right, #0f172a, #1e293b); }
+            .planner-dashboard {
+                background-color: rgba(30, 41, 59, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .header h1, .header p { color: #f1f5f9; }
+            .task-card {
+                background-color: rgba(15, 23, 42, 0.8);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                input[type="text"] { color: #f1f5f9; }
+                input::placeholder { color: #64748b; }
+            }
+            .task-card:focus-within { border-left: 5px solid #38bdf8; }
+            .task-card.completed { background-color: rgba(15, 23, 42, 0.4); }
+            .action-icon { color: #38bdf8; }
+            .delete-icon { color: #ff4757; }
+        }
+        @media (max-width: 890px) { .planner-dashboard { max-width: 90%; } }
+        @media (max-width: 700px) { .planner-dashboard { padding: 25px 20px; } }
+        @media (max-width: 460px) { .header h1 { font-size: 1.8rem; }.planner-dashboard {margin-top: 70px;} .task-card { flex-direction: column; align-items: flex-start; gap: 10px; } .task-card input[type="text"] { width: 100%; } .add-btn { width: 100%; font-size: 1rem; } }
+    </style>
+</head>
+<body>
+
+    <a href="index.htm" style="position: absolute; top: 30px; left: 30px; color: white; text-decoration: none; font-size: 1.2rem;">
+        <i class="ri-arrow-left-line"></i> Dashboard
+    </a>
+
+    <div class="planner-dashboard">
+        <div class="header">
+            <h1><i class="ri-calendar-todo-fill"></i> Daily Planner</h1>
+            <p id="currentDate">Loading date...</p>
+        </div>
+
+        <div class="task-list" id="plannerList">
+            </div>
+
+        <button class="add-btn" onclick="addNewTaskBox()">
+            <i class="ri-add-line"></i> Add Extra Task
+        </button>
+    </div>
+
+    <script>
+        const plannerList = document.getElementById('plannerList');
+
+        // --- 1. SET TODAY'S DATE ---
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('en-US', dateOptions);
+
+        // --- 2. CREATE A TASK DIV UI ---
+        function createTaskHTML(taskText = "", isCompleted = false) {
+            const div = document.createElement('div');
+            div.className = `task-card ${isCompleted ? 'completed' : ''}`;
+            
+            let checkIcon = isCompleted ? 'ri-checkbox-circle-fill' : 'ri-checkbox-blank-circle-line';
+
+            div.innerHTML = `
+                <i class="${checkIcon} action-icon check-btn" onclick="toggleTask(this)"></i>
+                <input type="text" placeholder="Write a task..." value="${taskText}" oninput="savePlannerData()">
+                <i class="ri-delete-bin-5-line action-icon delete-icon" onclick="deleteTask(this)"></i>
+            `;
+            return div;
+        }
+
+        // --- 3. LOAD DATA OR CREATE 4 DEFAULT BOXES ---
+        function loadPlanner() {
+            let savedTasks = JSON.parse(localStorage.getItem('myDailyPlanner'));
+
+            // Agar pehle se data nahi hai ya array empty hai, toh 4 default blank divs banao
+            if (!savedTasks || savedTasks.length === 0) {
+                for (let i = 0; i < 4; i++) {
+                    plannerList.appendChild(createTaskHTML());
+                }
+            } else {
+                // Agar data hai, toh usko load karo
+                savedTasks.forEach(task => {
+                    plannerList.appendChild(createTaskHTML(task.text, task.completed));
+                });
+            }
+        }
+
+        // --- 4. SAVE DATA TO LOCAL STORAGE ---
+        function savePlannerData() {
+            let allTaskCards = document.querySelectorAll('.task-card');
+            let tasksArray = [];
+
+            allTaskCards.forEach(card => {
+                let inputVal = card.querySelector('input').value;
+                let isDone = card.classList.contains('completed');
+                
+                // Hum blank inputs ko bhi save karenge taaki 4 box hamesha dikhein
+                tasksArray.push({ text: inputVal, completed: isDone });
+            });
+
+            localStorage.setItem('myDailyPlanner', JSON.stringify(tasksArray));
+        }
+
+        // --- 5. BUTTON FUNCTIONS ---
+        function addNewTaskBox() {
+            plannerList.appendChild(createTaskHTML());
+            savePlannerData();
+        }
+
+        function toggleTask(iconElement) {
+            let card = iconElement.closest('.task-card');
+            card.classList.toggle('completed');
+            
+            if (card.classList.contains('completed')) {
+                iconElement.classList.replace('ri-checkbox-blank-circle-line', 'ri-checkbox-circle-fill');
+            } else {
+                iconElement.classList.replace('ri-checkbox-circle-fill', 'ri-checkbox-blank-circle-line');
+            }
+            savePlannerData();
+        }
+
+        function deleteTask(deleteElement) {
+            let card = deleteElement.closest('.task-card');
+            card.style.transform = 'scale(0)';
+            card.style.opacity = '0';
+            
+            // Animation ke liye thoda delay
+            setTimeout(() => {
+                card.remove();
+                savePlannerData();
+            }, 200);
+        }
+
+        // Start the app
+        loadPlanner();
+    </script>
+    <script src="./global-theme.js"></script>
+</body>
+</html>

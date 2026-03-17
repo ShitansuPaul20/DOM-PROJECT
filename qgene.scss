@@ -1,0 +1,152 @@
+@font-face {
+    font-family: ita;
+    src: url('./PlayfairDisplay-Italic-VariableFont_wght.ttf');
+}
+
+@font-face {
+    font-family: med;
+    src: url('./PlayfairDisplay-Medium.ttf');
+}
+@font-face {
+    font-family: semi;
+    src: url('./PlayfairDisplay-SemiBold.ttf');
+}
+@font-face {
+    font-family: bol;
+    src: url('./PlayfairDisplay-Bold.ttf');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+}
+
+a{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2rem;
+}
+
+body{
+    background-color: #bbc6fa
+}
+
+.quote-box{
+    background-color: #fff;
+    width: 50rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 10px 20px 0 rgba(0 , 0 , 0 , 0.15);
+
+    h2{
+        font-size: 2rem;
+        margin:10px;
+        font-family: semi;
+        position: relative;
+        &::after{
+            content: '';
+            width: 100px;
+            height: 3px;
+            background-color: blue;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    blockquote{
+        font-size: 1.5rem;
+        min-height: 110px;
+        padding: 20px;
+        &::after , &::before{
+            content: '"';
+            color: blue;
+        }
+    }
+    span{
+        display: block;
+        margin-top: 10px;
+        float: right;
+        position: relative;
+        font-family: bol;
+        &::before{
+            content: "";
+            width: 12px;
+            height: 2px;
+            background-color: rgb(0, 0, 0);
+            position: absolute;
+            top: 53%;
+            left: -30%;
+        }
+    }
+    div{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        button{
+                 background: linear-gradient(to right, rgb(88, 88, 255), rgb(179, 28, 179));
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin: 10px auto 0;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                width: fit-content;
+                
+                &:hover{
+                    transform: translateY(-3px);
+                    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+                }
+                &:active {
+                    transform: translateY(1px);
+                }
+            }
+        .j{
+            background-color: white;
+            border: 1px solid ;
+            color: rgb(255, 255, 255);
+            i{
+                color: rgb(255, 255, 255);
+            }
+        }
+    }
+}
+
+/* --- QUOTES DARK MODE OVERRIDES --- */
+[data-theme="dark"] {
+    body { background-color: #0f172a; }
+    .quote-box {
+        background-color: #1e293b;
+        color: #f1f5f9;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        h2::after { background-color: #38bdf8; }
+        blockquote::after, blockquote::before { color: #38bdf8; }
+        span::before { background-color: #f1f5f9; }
+        div .j { background-color: rgba(15, 23, 42, 0.8); border-color: rgba(255,255,255,0.1); }
+    }
+}
+
+@media (max-width: 1175px) { .quote-box { width: 40rem; } }
+@media (max-width: 890px) { .quote-box { width: 80%; } }
+@media (max-width: 700px) { .quote-box { padding: 30px; h2 { font-size: 1.5rem; } blockquote { font-size: 1.2rem; min-height: 80px; } } }
+@media (max-width: 460px) { .quote-box { width: 90%; padding: 20px; blockquote { font-size: 1rem; } div { flex-direction: column; button { width: 100%; font-size: 1rem; } .j { width: 100%; } } } }

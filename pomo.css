@@ -1,0 +1,274 @@
+@font-face {
+  font-family: med;
+  src: url("./Orbitron-Medium.ttf");
+}
+@font-face {
+  font-family: reg;
+  src: url("./Orbitron-Regular.ttf");
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  font-family: reg;
+  color: black;
+  font-size: 1.2rem;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  background-color: #cfc7ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+input, #taskNameInput {
+  width: 50rem;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+  padding-inline: 1rem 2rem;
+  font-size: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  width: 50rem;
+  height: 30rem;
+  background-image: linear-gradient(to top right, rgba(0, 0, 255, 0.219), rgba(255, 0, 43, 0.219));
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.467);
+}
+.container h1 {
+  font-size: 6rem;
+  letter-spacing: 2px;
+  font-family: reg;
+  font-weight: 400;
+}
+.container .buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.container .buttons .button {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.container .buttons .button h3 {
+  font-family: reg;
+  font-size: 1.4rem;
+}
+.container .buttons .button button {
+  background: linear-gradient(to right, rgba(251, 251, 251, 0.382), rgba(255, 255, 255, 0.315));
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px auto 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.container .buttons .button button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+.container .buttons .button button:active {
+  transform: translateY(1px);
+}
+
+.WorksessionPopup {
+  display: none;
+}
+.WorksessionPopup .popupContainer {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7176470588);
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+.WorksessionPopup .popupContainer .popUp {
+  height: 150px;
+  width: 230px;
+  background-color: #cfc7ff;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-direction: column;
+  font-family: reg;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+.WorksessionPopup .popupContainer .popUp button {
+  background: linear-gradient(to right, rgb(88, 88, 255), rgb(179, 28, 179));
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px auto 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+/* --- POMODORO DARK MODE OVERRIDES --- */
+[data-theme=dark] body {
+  background-color: #0f172a;
+}
+[data-theme=dark] a, [data-theme=dark] h1 {
+  color: #f1f5f9;
+}
+[data-theme=dark] input, [data-theme=dark] #taskNameInput {
+  background-color: rgba(30, 41, 59, 0.8);
+  color: #f1f5f9;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+[data-theme=dark] .container {
+  background-image: linear-gradient(to top right, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+[data-theme=dark] .container .buttons .button h3 {
+  color: #f1f5f9;
+}
+[data-theme=dark] .container .buttons .button button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+[data-theme=dark] .WorksessionPopup .popupContainer .popUp {
+  background-color: #1e293b;
+  color: #f1f5f9;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 890px) {
+  input, #taskNameInput {
+    width: 80%;
+  }
+  .container {
+    width: 80%;
+  }
+  .container h1 {
+    font-size: 3rem;
+  }
+  .container .buttons {
+    justify-content: center;
+    gap: 15px;
+  }
+  .container .buttons h3 {
+    text-align: center;
+  }
+}
+@media (max-width: 700px) {
+  .container h1 {
+    font-size: 3rem;
+  }
+  .container .buttons {
+    justify-content: center;
+    gap: 10px;
+  }
+  .container .buttons h3 {
+    font-size: 1px;
+    text-align: center;
+  }
+  .container .buttons button {
+    width: 70px;
+    height: 40px;
+  }
+}
+@media (max-width: 893px) {
+  .container h1 {
+    font-size: 3.5rem;
+  }
+  .container .buttons {
+    justify-content: center;
+    gap: 10px;
+  }
+  .container .buttons h3 {
+    font-size: 1px;
+    text-align: center;
+  }
+  .container .buttons button {
+    width: 70px;
+    height: 40px;
+  }
+}
+@media (max-width: 556px) {
+  .container h1 {
+    font-size: 2.8rem;
+  }
+  .container .buttons {
+    justify-content: center;
+    gap: 10px;
+  }
+  .container .buttons h3 {
+    font-size: 1px;
+    text-align: center;
+  }
+  .container .buttons button {
+    width: 70px;
+    height: 40px;
+  }
+}
+@media (max-width: 460px) {
+  input, #taskNameInput {
+    width: 95%;
+  }
+  .container {
+    width: 95%;
+  }
+  .container h1 {
+    font-size: 3rem;
+  }
+  .container .buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+}/*# sourceMappingURL=pomo.css.map */

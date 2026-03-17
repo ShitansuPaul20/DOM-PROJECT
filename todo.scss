@@ -1,0 +1,252 @@
+@font-face {
+    font-family: med;
+    src: url(./MonaSans-Medium.ttf);
+}
+@font-face {
+    font-family: reg;
+    src: url(./MonaSans-Regular.ttf);
+}
+@font-face {
+    font-family: lighti;
+    src: url(./MonaSans-Light.ttf);
+}
+
+:root {
+  --visible-u: hidden;
+
+  //color
+  
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+}
+
+a{
+    font-family: reg;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom right , rgb(88, 88, 255) , rgb(179, 28, 179));
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10rem 20rem;
+    .todoapp{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        background-color: rgba(250, 235, 215, 0.317);
+        height: auto;
+        width: 800px;
+        border-radius: 30px;
+        padding: 20px;
+        gap: 20px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        .heading{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+
+            h2{
+                font-family: reg;
+                font-size: 2.5rem;
+                font-weight: 900;
+                color: white;
+            }
+            img{
+                height: 80px;
+            }
+        }
+        .searchbox{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            width: 100%;
+            border-radius: 50px;
+            padding: 0 10px;
+            input[type = "text"]{
+                width: 82%;
+                height: 100%;
+                border: none;
+                outline: none;
+                font-size: 1.3rem;
+                font-family: reg;
+                background-color: rgba(255, 255, 255, 0.695);
+                padding: 4px 40px;
+                border-radius: 50px;
+
+                &:focus{
+                    outline: none;
+                }
+                &::placeholder{
+                    font-size: 1.3rem;
+                    font-family: reg;
+                }
+            }
+            button{
+                 background: linear-gradient(to right, rgb(88, 88, 255), rgb(179, 28, 179));
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin: 10px auto 0;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                width: fit-content;
+                
+                &:hover{
+                    transform: translateY(-3px);
+                    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+                }
+                &:active {
+                    transform: translateY(1px);
+                }
+            }
+        }
+        .Task_list{
+            width: 100%;
+            height: auto;
+            .Task_list_ul{
+                list-style: none;
+                font-family: reg;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+                gap: 15px;
+                width: 100%;
+                li{
+                    background-color: rgba(225, 225, 225, 0.533);
+                    border-radius: 20px;
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 20px;
+                    gap: 74px;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+                    
+                    .oops{
+                        width: 73%;
+                        height: auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: start;
+                        gap: 20px;
+                        position: relative;
+                        flex-grow: 1;
+                        cursor: pointer;
+                        .task-text{
+                            word-break: break-word; 
+                            overflow-wrap: break-word;
+                        }
+                        i{
+                            font-size: 30px;
+                            color: rgb(29, 29, 29);
+                           
+                            z-index: 1;
+                        }
+                        .marked{
+                            position: absolute;
+                            width: 0;        
+                            height: 0;
+                            left: 1%;            
+                            top: 50%;
+                            transform: translateY(-50%);
+                            z-index: 2;
+                            background-image: url("./correct-removebg-preview (2).png");
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            pointer-events: none;
+                            overflow: hidden;
+                        }
+                        &.checked {
+                           .marked{
+                                width: 25px; 
+                                height: 25px;
+                               
+                            }
+                            .task-text{
+                                 text-decoration: line-through;
+                            }
+                            i{
+                                visibility: hidden;
+                            }
+                        }
+                    }    
+                    i{
+                        font-size: 29px;
+                        color: rgb(41, 41, 41);
+                        cursor: pointer;
+                        position: relative;
+                    }
+
+                    &.uff{
+                        li{
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* --- TO-DO DARK MODE OVERRIDES --- */
+[data-theme="dark"] {
+    main {
+        background-image: linear-gradient(to bottom right, #0f172a, #1e293b);
+        .todoapp {
+            background-color: rgba(30, 41, 59, 0.85);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            .heading h2 { color: #f1f5f9; }
+            .searchbox input[type="text"] {
+                background-color: rgba(15, 23, 42, 0.6);
+                color: #f1f5f9;
+                &::placeholder { color: #94a3b8; }
+            }
+            .Task_list .Task_list_ul li {
+                background-color: rgba(15, 23, 42, 0.8);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+                .oops .task-text { color: #f1f5f9; }
+                .oops i, > i { color: #94a3b8; }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1175px) { main { padding: 5rem 10rem; } main .todoapp { width: 90%; } }
+@media (max-width: 890px) { main { padding: 3rem 5rem; } .todoapp{ margin-top: 100px;}}
+@media (max-width: 700px) { main { padding: 2rem; } main .todoapp { margin-top: 100px; width: 95%; .heading { gap: 20px; h2 { font-size: 2rem; } } } main .todoapp .Task_list .Task_list_ul li { gap: 20px; padding: 15px; } }
+@media (max-width: 460px) {
+    main { padding: 1rem; }
+    main .todoapp {
+        margin-top: 100px;
+        padding: 15px; border-radius: 20px; .heading h2 { font-size: 1.5rem; } .heading img { height: 50px; }
+        .searchbox { flex-direction: column; height: auto; padding: 0; gap: 10px; input[type="text"] { width: 100%; height: 50px; padding: 4px 20px; } button { width: 100%; justify-content: center; margin: 0; } }
+        .Task_list .Task_list_ul li { flex-direction: column; align-items: flex-start; gap: 15px; border-radius: 15px; .oops { width: 100%; } > i { align-self: flex-end; } }
+    }
+}

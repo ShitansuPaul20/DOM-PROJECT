@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer + Stop Watch</title>
+    <link rel="stylesheet" href="pomo.css">
+    <link rel="stylesheet" href="dark-mode.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+     <a href="index.htm" style="position: absolute; top: 30px; left: 30px; color: white; text-decoration: none; font-size: 1.2rem;">
+        <i class="ri-arrow-left-line"></i> Dashboard
+    </a>
+
+    <input type="number" class="limit" min="25" max="55" placeholder="Set the time here ( 25 to 55 min )">
+
+    <input type="text" id="taskNameInput" list="taskList" placeholder="Choose or type a task..." style="width: 500px; height: 50px; border: none; outline: none; border-radius: 1rem; padding-inline: 1rem; font-size: 1rem; font-family: reg;">
+
+    <datalist id="taskList"></datalist>
+    <div class="container">
+        <h1>00 : 00 : 00</h1>
+        <div class="buttons">
+            <div class="button">
+                <button onclick="watchstart()">
+                    <i class="ri-play-fill"></i>
+                </button>
+                <h3>Start Work Session</h3>
+            </div>
+            <div class="button">
+                <button onclick="resetWatch()">
+                    <i class="ri-close-large-line"></i>
+                </button>
+                <h3>Cancel Work Session</h3>
+            </div>
+        </div>
+    </div>
+    <div class="WorksessionPopup">
+        <div class="popupContainer">
+            <div class="popUp">
+                <h2>Congratulations</h2>
+                <button class="ok" onclick="deletePopup()" oninput="enforceMinMax(this)">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./pomo.js"></script>
+    <script src="./global-theme.js"></script>
+</body>
+</html>

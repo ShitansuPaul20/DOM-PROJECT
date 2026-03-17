@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark-mode.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+    <main>
+        <nav>
+            <a href="#" class="logo">
+                <i class="ri-meteor-fill"></i> <span>FocusFlow</span>
+            </a>
+            
+            <div class="nav-right" id="navRight">
+                <div id="loggedOutNav" class="nav-buttons">
+                    <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
+                    <button class="btn btn-solid" onclick="openModal('signup')">Sign Up</button>
+                </div>
+
+                <div id="loggedInNav" class="hidden nav-buttons">
+                    <button class="icon-btn theme-toggle" onclick="toggleGlobalTheme() " title="Change Theme">
+                        <i class="ri-moon-line" id="themeIcon"></i>
+                    </button>
+                    <div class="profile-pic" id="navAvatar" onclick="openModal('profile')" title="My Profile">U</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="date-and-time">
+            <div class="container1">
+                <div class="clock">
+                    <span class="h">00</span><span>:</span>
+                    <span class="m">00</span><span>:</span>
+                    <span class="s">00</span>
+                </div>
+                <div class="calender">
+                    <div class="dateo">
+                        <h1 class="date">13</h1>
+                        <h4 class="day">Thursday</h4>
+                    </div>
+                    <div class="montho">
+                        <h4 class="month">January</h4>
+                        <h4 class="year">2026</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contents">
+            <a href="./todoList.htm">
+                <div class="boxo to-do-bg">
+                    <div class="index">01</div><div class="vl"></div><div class="card-text">To-Do-List</div>
+                    <i class="ri-list-check-3 bg-icon"></i>
+                </div>
+            </a>
+            <a href="./Dailyplanner.htm">
+                <div class="boxo planner-bg">
+                    <div class="index">02</div><div class="vl"></div><div class="card-text">Daily-planner</div>
+                    <i class="ri-calendar-todo-line bg-icon"></i>
+                </div>
+            </a>
+            <a href="./PomodoroTimer.htm">
+                <div class="boxo pomo-bg">
+                    <div class="index">03</div><div class="vl"></div><div class="card-text">Pomodoro Timer</div>
+                    <i class="ri-hourglass-2-line bg-icon"></i>
+                </div>
+            </a>
+            <a href="./DailyQuotes.htm">
+                <div class="boxo quotes-bg">
+                    <div class="index">04</div><div class="vl"></div><div class="card-text">Daily Quotes</div>
+                    <i class="ri-double-quotes-l bg-icon"></i>
+                </div>
+            </a>
+            <a href="./ProgressTracker.htm">
+                <div class="boxo tracker-bg">
+                    <div class="index">05</div><div class="vl"></div><div class="card-text">Progress Tracker</div>
+                    <i class="ri-line-chart-line bg-icon"></i>
+                </div>
+            </a>
+            <div class="boxo fun-bg">
+                <div class="fun-header">
+                    <div class="index">06</div><div class="vl"></div><div class="card-text">Make your break fun</div>
+                </div>
+                <div class="game-buttons">
+                    <a href="./snakeGame.htm" class="game-btn"><i class="ri-aliens-line"></i> Snake</a>
+                    <a href="./bubbleGame.htm" class="game-btn"><i class="ri-bubble-chart-line"></i> Bubble</a>
+                    <a href="./tictactoe.htm" class="game-btn"><i class="ri-gamepad-line"></i> Tic Tac Toe</a>
+                </div>
+                <i class="ri-gamepad-fill bg-icon" style="opacity: 0.3;"></i>
+            </div>
+        </div>
+    </main>
+
+    <div id="authModal" class="modal-overlay hidden">
+        <div class="glass-card auth-form" id="loginForm">
+            <i class="ri-close-line close-btn" onclick="closeModal()"></i>
+            <h2>Welcome Back!</h2>
+            <p>Log in to track your productivity.</p>
+            <div class="input-group"><i class="ri-mail-line"></i><input type="email" id="logEmail" placeholder="Email Address"></div>
+            <div class="input-group"><i class="ri-lock-line"></i><input type="password" id="logPass" placeholder="Password"></div>
+            <button class="btn btn-solid" style="width: 100%; padding: 15px;" onclick="processLogin()">Log In</button>
+            <p class="switch-text">New to FocusFlow? <span onclick="switchForm('signup')">Sign Up</span></p>
+        </div>
+
+        <div class="glass-card auth-form hidden" id="signupForm">
+            <i class="ri-close-line close-btn" onclick="closeModal()"></i>
+            <h2>Create Account</h2>
+            <p>Join FocusFlow to manage your tasks.</p>
+            <div class="input-group"><i class="ri-user-line"></i><input type="text" id="signName" placeholder="Full Name"></div>
+            <div class="input-group"><i class="ri-mail-line"></i><input type="email" id="signEmail" placeholder="Email Address"></div>
+            <div class="input-group"><i class="ri-lock-line"></i><input type="password" id="signPass" placeholder="Create Password"></div>
+            <button class="btn btn-solid" style="width: 100%; padding: 15px;" onclick="processSignup()">Sign Up</button>
+            <p class="switch-text">Already have an account? <span onclick="switchForm('login')">Log In</span></p>
+        </div>
+
+        <div class="glass-card profile-dashboard hidden" id="profilePage">
+            <i class="ri-close-line close-btn" onclick="closeModal()"></i>
+            <div class="avatar-large" id="profileAvatar">U</div>
+            <h2 id="profileName">User Name</h2>
+            <p class="email" id="profileEmail">user@email.com</p>
+            <div class="stats-grid">
+                <div class="stat-box"><h3 id="statTasks">0</h3><p>Total Tasks</p></div>
+                <div class="stat-box"><h3 id="statMinutes">0m</h3><p>Focus Time</p></div>
+            </div>
+            <button class="btn btn-outline" style="width: 100%; border-color: #ff4757; color: #ff4757;" onclick="processLogout()">
+                <i class="ri-logout-box-r-line"></i> Log Out
+            </button>
+        </div>
+    </div>
+
+    <script src="./clock.js"></script>
+    <script src="./calender.js"></script>
+    <script src="./auth.js"></script> </body>
+    <script src="./global-theme.js"></script>
+</html>
