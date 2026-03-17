@@ -1,4 +1,6 @@
-// ====== MODAL (POPUP) LOGIC ======
+// ====== auth.js (Authentication & Home Page Controller) ======
+
+// --- MODAL (POPUP) LOGIC ---
 const authModal = document.getElementById('authModal');
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
@@ -26,19 +28,21 @@ function switchForm(type) {
     }
 }
 
+// Bahar click karne pe modal band karna (Sirf tab jab user logged in ho)
 if(authModal) {
     authModal.addEventListener('click', (e) => {
-        if (e.target === authModal) closeModal();
+        const user = localStorage.getItem('focusUser');
+        if (e.target === authModal && user) { 
+            closeModal();
+        }
     });
 }
 
-// ====== AUTHENTICATION LOGIC ======
+// --- LOGIN / SIGNUP LOGIC ---
 function updateNavbar() {
     const user = JSON.parse(localStorage.getItem('focusUser'));
     const loggedOutNav = document.getElementById('loggedOutNav');
     const loggedInNav = document.getElementById('loggedInNav');
-    
-    // Naya: Modal ke andar ke saare Close (X) buttons select karo
     const closeBtns = document.querySelectorAll('.close-btn'); 
 
     if (user) {
@@ -47,16 +51,16 @@ function updateNavbar() {
         let navAv = document.getElementById('navAvatar');
         if(navAv) navAv.innerText = user.name.charAt(0).toUpperCase();
         
-        // User logged in hai -> Profile popup band karne ke liye 'X' button dikhao
+        // Logged in hai toh 'X' button dikhao
         closeBtns.forEach(btn => btn.style.display = 'block');
     } else {
         if(loggedOutNav) loggedOutNav.classList.remove('hidden');
         if(loggedInNav) loggedInNav.classList.add('hidden');
         
-        // User logged in nahi hai -> 'X' button GAYAB kar do taaki kat na sake!
+        // Bina login 'X' button chupao
         closeBtns.forEach(btn => btn.style.display = 'none');
         
-        // App khulte hi Auto-Signup form dikhao
+        // App khulte hi Signup form dikhao
         openModal('signup');
     }
 }
@@ -70,7 +74,6 @@ function processSignup() {
 
     const user = { name, email, pass };
     localStorage.setItem('focusUser', JSON.stringify(user));
-    
     updateNavbar();
     closeModal();
 }
@@ -92,7 +95,7 @@ function processLogout() {
     updateNavbar();
 }
 
-// ====== PROFILE DATA INTEGRATION ======
+// --- PROFILE DATA ---
 function loadProfileData() {
     const user = JSON.parse(localStorage.getItem('focusUser'));
     if(!user) return;
@@ -110,23 +113,22 @@ function loadProfileData() {
     }
 }
 
-// 🔥 NAYA FEATURE 2: ROUTE PROTECTION (Bina Login Click Rokna)
-document.addEventListener('DOMContentLoaded', () => {
-    // Saare cards aur game buttons ko select karo
-    const protectedLinks = document.querySelectorAll('.contents a');
-    
-    protectedLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const user = JSON.parse(localStorage.getItem('focusUser'));
-            
-            // Agar user logged in nahi hai
-            if (!user) {
-                e.preventDefault(); // Page change hone se instantly rok do
-                openModal('login'); // Login form khol do
-            }
-        });
-    });
+// --- 🔥 THE ULTIMATE ROUTE PROTECTION (For Home Page Cards) ---
+// Pure page pe kahin bhi click ho, yeh function check karega
+document.addEventListener('click', function(e) {
+    let targetLink = e.target.closest('a'); // Dekho kya click kisi <a> tag pe hua hai
+
+    // Agar link .htm page pe le ja raha hai
+    if (targetLink && targetLink.getAttribute('href') && targetLink.getAttribute('href').includes('.htm')) {
+        const user = localStorage.getItem('focusUser');
+
+        if (!user) {
+            e.preventDefault(); // Click ko block karo
+            console.log("Card click blocked: Please login first!");
+            openModal('login'); // Login form khol do
+        }
+    }
 });
 
-// Initialize App
+// App shuru karo
 updateNavbar();

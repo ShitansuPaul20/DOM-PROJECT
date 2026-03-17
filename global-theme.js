@@ -1,56 +1,39 @@
+// ====== global-theme.js (Theme Master) ======
 
 function applyGlobalTheme() {
     let savedTheme = localStorage.getItem('focusTheme') || 'light';
-    console.log("Applying theme:", savedTheme); 
-
+    
     if (savedTheme === 'dark') {
-
+        // HTML aur Body dono pe lagao taaki koi CSS miss na ho
         document.documentElement.setAttribute('data-theme', 'dark');
-        document.body.setAttribute('data-theme', 'dark'); 
+        document.body.setAttribute('data-theme', 'dark');
     } else {
-
         document.documentElement.removeAttribute('data-theme');
-        document.body.removeAttribute('data-theme'); 
+        document.body.removeAttribute('data-theme');
     }
 
+    // Icon ko update karo (Agar Home page pe ho toh)
     let themeIcon = document.getElementById('themeIcon');
     if (themeIcon) {
         themeIcon.className = savedTheme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
-        console.log("Icon synchronized!");
     }
 }
 
-
+// 1. Page load hote hi turant apply karo
 applyGlobalTheme();
 
-window.addEventListener('pageshow', function(event) {
-    if (event.persisted) {
-        console.log("Page loaded from Back-Forward Cache! Forcing theme update...");
-        applyGlobalTheme();
-    }
+// 2. bfcache (Back Button) Bug Fix
+window.addEventListener('pageshow', applyGlobalTheme);
+
+// 3. Dusre tab mein theme badle toh yahan bhi badal jaye
+window.addEventListener('storage', (e) => {
+    if (e.key === 'focusTheme') applyGlobalTheme();
 });
 
-document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'visible') {
-        console.log("Tab is visible again! Forcing theme update...");
-        applyGlobalTheme();
-    }
-});
-
-window.addEventListener('focus', applyGlobalTheme);
-
-window.addEventListener('storage', function(e) {
-    if (e.key === 'focusTheme') {
-        console.log("Theme changed in another tab! Syncing...");
-        applyGlobalTheme();
-    }
-});
-
+// 4. Button Click Function (Home page ke moon/sun button ke liye)
 function toggleGlobalTheme() {
     let currentTheme = localStorage.getItem('focusTheme') || 'light';
     let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    console.log("Button clicked! Changing theme to:", newTheme);
     localStorage.setItem('focusTheme', newTheme);
     applyGlobalTheme();
 }
