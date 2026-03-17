@@ -1,4 +1,4 @@
-// ====== MODAL (POPUP) LOGIC ======
+
 const authModal = document.getElementById('authModal');
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
@@ -26,9 +26,16 @@ function switchForm(type) {
     }
 }
 
+// ====== MODAL (POPUP) CLOSING LOGIC ======
 if(authModal) {
     authModal.addEventListener('click', (e) => {
-        if (e.target === authModal) closeModal();
+        const user = localStorage.getItem('focusUser'); // Check karo user hai ya nahi
+        
+        // Agar user click bahar karta hai AUR wo logged in hai, tabhi close hoga
+        if (e.target === authModal && user) {
+            closeModal();
+        } 
+        // Agar logged in nahi hai, toh popup band nahi hoga (Hard Wall)
     });
 }
 
@@ -37,17 +44,26 @@ function updateNavbar() {
     const user = JSON.parse(localStorage.getItem('focusUser'));
     const loggedOutNav = document.getElementById('loggedOutNav');
     const loggedInNav = document.getElementById('loggedInNav');
+    
+    // Naya: Modal ke andar ke saare Close (X) buttons select karo
+    const closeBtns = document.querySelectorAll('.close-btn'); 
 
     if (user) {
         if(loggedOutNav) loggedOutNav.classList.add('hidden');
         if(loggedInNav) loggedInNav.classList.remove('hidden');
         let navAv = document.getElementById('navAvatar');
         if(navAv) navAv.innerText = user.name.charAt(0).toUpperCase();
+        
+        // User logged in hai -> Profile popup band karne ke liye 'X' button dikhao
+        closeBtns.forEach(btn => btn.style.display = 'block');
     } else {
         if(loggedOutNav) loggedOutNav.classList.remove('hidden');
         if(loggedInNav) loggedInNav.classList.add('hidden');
         
-        // 🔥 NAYA FEATURE 1: App khulte hi Auto-Signup form dikhao
+        // User logged in nahi hai -> 'X' button GAYAB kar do taaki kat na sake!
+        closeBtns.forEach(btn => btn.style.display = 'none');
+        
+        // App khulte hi Auto-Signup form dikhao
         openModal('signup');
     }
 }
@@ -87,11 +103,9 @@ function processLogout() {
 function loadProfileData() {
     const user = JSON.parse(localStorage.getItem('focusUser'));
     if(!user) return;
-
     document.getElementById('profileName').innerText = user.name;
     document.getElementById('profileEmail').innerText = user.email;
     document.getElementById('profileAvatar').innerText = user.name.charAt(0).toUpperCase();
-
     const appData = JSON.parse(localStorage.getItem("appProgressData"));
     if(appData) {
         document.getElementById('statTasks').innerText = appData.tasks ? appData.tasks.length : 0;
@@ -112,12 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Agar user logged in nahi hai
             if (!user) {
-                e.preventDefault(); // Page change hone se instantly rok do
-                openModal('login'); // Login form khol do
+                e.preventDefault(); 
+                
+                openModal('login'); 
             }
         });
     });
 });
 
-// Initialize App
+
 updateNavbar();
